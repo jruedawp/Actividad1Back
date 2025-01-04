@@ -3,11 +3,11 @@
 class Platform {
     private $id;
     private $name;
-    private $db;
 
-    // Constructor
-    public function __construct($db) {
-        $this->db = $db; // Conexión a la base de datos
+    // Constructores
+    public function __construct($idPlatform, $namePlatform) {
+        $this->id = $idPlatform;
+        $this->name = $namePlatform;
     }
 
     // Getters y Setters
@@ -25,6 +25,28 @@ class Platform {
 
     // Métodos CRUD
 
+    // Obtener todas las plataformas
+    public function getAll() {
+        $mysqli = $this->initConnectionDb();
+
+        try {
+            $query = $mysqli->query("SELECT * FROM plataformas");
+        } catch (PDOException $e) {
+            echo 'Error executing query: ' . $e->getMessage();  
+        }
+        $listData = [];
+
+        foreach ($query as $item) {
+            $itemObject = new Platform($item['id'], $item['name']);
+            array_push($listData, $itemObject);
+
+            $mysqli->close();
+
+            return $listData;
+        }
+    }
+
+    /*
     // Crear una nueva plataforma
     public function create() {
         $query = "INSERT INTO plataformas (name) VALUES (:name)";
@@ -33,13 +55,6 @@ class Platform {
         return $stmt->execute();
     }
 
-    // Obtener todas las plataformas
-    public function getAll() {
-        $query = "SELECT * FROM plataformas";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
     // Obtener una plataforma por ID
     public function getById($id) {
@@ -65,6 +80,36 @@ class Platform {
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
+    } */
+
+    function initConnectionDb() {
+        $db_host = 'aws-0-eu-central-1.pooler.supabase.com';
+        $db_user = 'postgres.vjkabbrffyeioopthdal';
+        $db_password = 'qfr2xT5*jpMjmcH';
+        $db_port = '6543';
+        $db_name = 'postgres';
+
+        /* $mysqli = @new mysqli {
+            $db_host,
+            $db_user,
+            $db_port,
+            $db_password,
+            $db_name
+        }; */
+
+        try {
+            $connection = new PDO(
+                "pgsql:host=$db_host;port=$db_port;dbname=$db_name;sslmode=require",
+                $db_user,
+                $db_password
+            );
+
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            return $connection;
+        } catch (PDOException $e) {
+            die("Error en la conexión: " . $e->getMessage());
+        }
     }
 }
 
