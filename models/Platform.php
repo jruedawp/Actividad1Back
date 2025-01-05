@@ -37,51 +37,52 @@ class Platform {
         $listData = [];
 
         foreach ($query as $item) {
-            $itemObject = new Platform($item['id'], $item['name']);
+            $itemObject = new Platform($item['id'], $item['nombre']);
             array_push($listData, $itemObject);
 
-            $mysqli->close();
-
-            return $listData;
+            
         }
+        return $listData;
     }
 
-    /*
-    // Crear una nueva plataforma
-    public function create() {
-        $query = "INSERT INTO plataformas (name) VALUES (:name)";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':name', $this->name);
-        return $stmt->execute();
+    // Crear una plataforma
+    public function store() {
+        $platformCreated = false;
+        $mysqli = $this->initConnectionDb();
+
+        // TODO: Comprobar que no existe otra plataforma con el mismo nombre
+        if ($resultInsert = $mysqli->query("INSERT INTO plataformas (nombre) VALUES (' $this->name ')")) {
+            $platformCreated = true;
+        }
+        return $platformCreated;
     }
 
-
-    // Obtener una plataforma por ID
-    public function getById($id) {
-        $query = "SELECT * FROM plataformas WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Actualizar una plataforma
+    // Editar una plataforma
     public function update() {
-        $query = "UPDATE plataformas SET name = :name WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':id', $this->id);
-        return $stmt->execute();
+        $platformEdited = false;
+        $mysqli = $this->initConnectionDb();
+
+        // TODO: Comprobar que existe antes de editar
+        if ($query = $mysqli->query("UPDATE plataformas set nombre = '" . $this->name . "' WHERE id = " . $this->id)) {
+            $platformEdited = true;
+        }
+        return $platformEdited;
     }
 
-    // Eliminar una plataforma
-    public function delete($id) {
-        $query = "DELETE FROM plataformas WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
-    } */
+    // Obtener plataforma por id
+    public function getItem() {
+        $mysqli = $this->initConnectionDb();
+        $query = $mysqli->query("SELECT * FROM plataformas WHERE id = " . $this->id);
 
+        foreach ($query as $item) {
+            $itemObject = new Platform($item["id"], $item["nombre"]);
+            break;
+        }
+
+        return $itemObject;
+    }
+
+    // Conectar a la Base de Datos
     function initConnectionDb() {
         $db_host = 'aws-0-eu-central-1.pooler.supabase.com';
         $db_user = 'postgres.vjkabbrffyeioopthdal';
