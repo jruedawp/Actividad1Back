@@ -40,7 +40,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-success" role="alert">
-                    Plataforma creada correctamente.<br><a href="list.php">Volver al listado de plataformas.</a>
+                    Plataforma creada correctamente.<br><a href="listPlatform.php">Volver al listado de plataformas.</a>
                 </div>
             </div>
             <?php
@@ -48,7 +48,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La plataforma no se ha creado correctamente.<br><a href="create.php">Volver a intentarlo.</a>
+                    La plataforma no se ha creado correctamente.<br><a href="createPlatform.php">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

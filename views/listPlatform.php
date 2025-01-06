@@ -13,7 +13,6 @@
     ?>   
     <table class='table'>
         <thead>
-            <th>Id</th>
             <th>Nombre</th>
             <th>Acciones</th>
         </thead>
@@ -22,13 +21,12 @@
             foreach($platformList as $platform) {
             ?>
                 <tr>
-                    <td><?php echo $platform->getId();?></td>
                     <td><?php echo $platform->getName();?></td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-success" href="edit.php?id=<?php echo $platform->getId();?>">Editar</a>
+                            <a class="btn btn-success" href="editPlatform.php?id=<?php echo $platform->getId();?>">Editar</a>
 
-                            <form name="delete_platform" action="delete.php" method="POST" style="...">
+                            <form name="delete_platform" action="deletePlatform.php" method="POST" style="...">
                                 <input type="hidden" name="platformId" value="<?php echo $platform->getId();?>" />
                                 <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
