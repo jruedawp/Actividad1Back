@@ -1,26 +1,26 @@
 <?php
 
-    require_once('../models/Platform.php');
+    require_once('../models/Actor.php');
 
-    class PlatformController {
+    class ActorController {
     
         // Constructor
         public function __construct() {
         }
 
-        // Listar todas las plataformas
-        public function listPlatforms() {
+        // Listar todos los actores
+        public function listActors() {
 
-            $model = new Platform(0, "");
-            $platformList = $model->getAll();
-            $platformObjectArray = [];
+            $model = new Actor(null, "", "", "", "");
+            $actorList = $model->getAll();
+            $actorObjectArray = [];
 
-            foreach($platformList as $platformItem) {
-                $platformObject = new Platform($platformItem->getId(), $platformItem->getName());
-                array_push($platformObjectArray, $platformObject);
+            foreach($actorList as $actorItem) {
+                $actorObject = new Actor($actorItem->getId(), $actorItem->getName(), $actorItem->getSurname(), $actorItem->getBirthDate(), $actorItem->getNationality());
+                array_push($actorObjectArray, $actorObject);
             }
 
-            return $platformObjectArray;
+            return $actorObjectArray;
         }
 
         // Crear una plataforma
