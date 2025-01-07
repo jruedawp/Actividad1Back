@@ -1,13 +1,19 @@
 <?php
 
-class Platform {
+class Actor {
     private $id;
     private $name;
+    private $surname;
+    private $birth_date;
+    private $nationality;
 
     // Constructores
-    public function __construct($idPlatform, $namePlatform) {
-        $this->id = $idPlatform;
-        $this->name = $namePlatform;
+    public function __construct($idActor, $nameActor, $surnameActor, $birth_date_actor, $nationalityActor) {
+        $this->id = $idActor;
+        $this->name = $nameActor;
+        $this->surname = $surnameActor;
+        $this->birth_date = $birth_date_actor;
+        $this->nationality = $nationalityActor;
     }
 
     // Getters y Setters
@@ -23,21 +29,45 @@ class Platform {
         $this->name = $name;
     }
 
+    public function getSurname() {
+        return $this->surname;
+    }
+
+    public function setSurname($surname) {
+        $this->surname = $surname;
+    }
+
+    public function getBirthDate() {
+        return $this->birth_date;
+    }
+
+    public function setBirthDate($birth_date) {
+        $this->birth_date = $birth_date;
+    }
+
+    public function getNationality() {
+        return $this->nationality;
+    }
+
+    public function setNationality($nationality) {
+        $this->nationality = $nationality;
+    }
+
     // Métodos CRUD
 
-    // Obtener todas las plataformas
+    // Obtener todos los actores
     public function getAll() {
         $mysqli = $this->initConnectionDb();
 
         try {
-            $query = $mysqli->query("SELECT * FROM plataformas ORDER BY id ASC");
+            $query = $mysqli->query("SELECT * FROM actores ORDER BY id ASC");
         } catch (PDOException $e) {
             echo 'Error executing query: ' . $e->getMessage();  
         }
         $listData = [];
 
         foreach ($query as $item) {
-            $itemObject = new Platform($item['id'], $item['nombre']);
+            $itemObject = new Actor($item['id'], $item['nombre'], $item['apellidos'], $item['fecha_nacimiento'], $item['nacionalidad']);
             array_push($listData, $itemObject);            
         }
         return $listData;
