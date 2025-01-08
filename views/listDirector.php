@@ -3,13 +3,13 @@
 </head>
 <div class="col-12">
     <?php
-        require_once '../controllers/ActorController.php';
+        require_once '../controllers/DirectorController.php';
 
-        $actorController = new ActorController();
+        $directorController = new DirectorController();
 
-        $actorList = $actorController->listactors();
+        $directorList = $directorController->listDirectors();
 
-        if(count($actorList) > 0) {
+        if(count($directorList) > 0) {
     ?>   
     <table class='table'>
         <thead>
@@ -21,19 +21,19 @@
         </thead>
         <tbody>
             <?php
-            foreach($actorList as $actor) {
+            foreach($directorList as $director) {
             ?>
                 <tr>
-                    <td><?php echo $actor->getName();?></td>
-                    <td><?php echo $actor->getSurname();?></td>
-                    <td><?php echo $actor->getBirthDate();?></td>
-                    <td><?php echo $actor->getNationality();?></td>
+                    <td><?php echo $director->getName();?></td>
+                    <td><?php echo $director->getSurname();?></td>
+                    <td><?php echo $director->getBirthDate();?></td>
+                    <td><?php echo $director->getNationality();?></td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-success" href="editactor.php?id=<?php echo $actor->getId();?>">Editar</a>
+                            <a class="btn btn-success" href="editdirector.php?id=<?php echo $director->getId();?>">Editar</a>
 
-                            <form name="delete_actor" action="deleteactor.php" method="POST" style="...">
-                                <input type="hidden" name="actorId" value="<?php echo $actor->getId();?>" />
+                            <form name="delete_director" action="deletedirector.php" method="POST" style="...">
+                                <input type="hidden" name="directorId" value="<?php echo $director->getId();?>" />
                                 <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
                         </div>
@@ -48,7 +48,7 @@
             } else {
     ?>
     <div class="alert alert-warning" role="alert">
-        Aún no existen actores.
+        Aún no existen directores.
     </div>
     <?php
         }
