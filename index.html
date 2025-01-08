@@ -16,8 +16,13 @@
             background-color: #f4f4f4;
         }
 
-        .button {
+        .button-container {
+            display: flex;
+            align-items: center;
             margin: 10px;
+        }
+
+        .button {
             padding: 10px 20px;
             font-size: 16px;
             color: white;
@@ -27,19 +32,53 @@
             cursor: pointer;
             text-decoration: none;
             text-align: center;
+            margin-right: 10px;
         }
 
         .button:hover {
             background-color: #0056b3;
         }
+
+        .plus-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        
+
+        .plus-button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
-    <h1>Botones de Navegación</h1>
-    <a href="../views/listActor.php" class="button">Actores</a>
-    <a href="../views/listPlatform.php" class="button">Plataformas</a>
-    <a href="../views/listDirector.php" class="button">Directores</a>
-    <a href="../views/listIdiom.php" class="button">Idiomas</a>
-    <a href="../views/listSerie.php" class="button">Series</a>
+    <h1>Series</h1>
+    <div class="button-container">
+        <a href="../views/listActor.php" class="button">Listado de Actores</a>
+        <a href="../views/createActor.php" class="plus-button">+</a>
+    </div>
+    <div class="button-container">
+        <a href="../views/listPlatform.php" class="button">Listado de plataformas</a>
+        <a href="../views/createPlatform.php" class="plus-button">+</a>
+    </div>
+    <div class="button-container">
+        <a href="../views/listDirector.php" class="button">Listado de directores</a>
+        <a href="../views/createDirector.php" class="plus-button">+</a>
+    </div>
+    <div class="button-container">
+        <a href="../views/listIdiom.php" class="button">Listado de idiomas</a>
+        <a href="../views/createIdiom.php" class="plus-button">+</a>
+    </div>
+    <div class="button-container">
+        <a href="../views/listSerie.php" class="button">Listado de series</a>
+        <a href="../views/createSerie.php" class="plus-button">+</a>
+    </div>
 </body>
 </html>

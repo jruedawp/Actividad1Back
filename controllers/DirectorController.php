@@ -24,7 +24,6 @@
 
         // Crear un director
         public function storeDirector ($directorName, $directorSurname, $directorBirthDate, $directorNationality) {
-
             $newDirector = new Director(null, $directorName, $directorSurname, $directorBirthDate, $directorNationality);
             $directorCreated = $newDirector->store();
 
@@ -34,7 +33,6 @@
         // Editar un Director
         public function updateDirector ($directorId, $directorName, $directorSurname, $directorBirthDate, $directorNationality) {
             $director = new Director($directorId, $directorName, $directorSurname, $directorBirthDate, $directorNationality);
-
             $directorEdited = $director->update();
 
             return $directorEdited;
@@ -42,10 +40,8 @@
 
         // Obtener director por id
         public function getDirectorData ($idDirector) {
-            $director = new Director($idDirector, "","","","");
-            $directorObject = $director->getItem();
-
-            return $directorObject;
+            $directorObject = new Director($idDirector, "", "", "", "");
+            return $directorObject->getItem();
         }
 
         // Borrar un director
