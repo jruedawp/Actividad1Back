@@ -78,15 +78,11 @@ class Director {
         $directorCreated = false;
         $mysqli = $this->initConnectionDb();
     
-        $id = $mysqli->real_escape_string($this->id);
-        $name = $mysqli->real_escape_string($this->name);
-        $surname = $mysqli->real_escape_string($this->surname);
-        $birth_date = $mysqli->real_escape_string($this->birth_date);
-        $nationality = $mysqli->real_escape_string($this->nationality);
+        // Crear consulta directamente
+        $query = "INSERT INTO directores (nombre, apellidos, fecha_nacimiento, nacionalidad) 
+                  VALUES ('" . $this->name . "', '" . $this->surname . "', '" . $this->birth_date . "', '" . $this->nationality . "')";
     
-        $query = "INSERT INTO directores (id, name, surname, birth_date, nationality) 
-          VALUES ('" . $id . "', '" . $name . "', '" . $surname . "', '" . $birth_date . "', '" . $nationality . "')";
-
+        // Ejecutar la consulta y verificar si se creó el director
         if ($mysqli->query($query)) {
             $directorCreated = true;
         }
@@ -94,22 +90,16 @@ class Director {
         return $directorCreated;
     }
 
-    // Editar una plataforma
+    // Editar un director
     public function update() {
         $directorEdited = false;
         $mysqli = $this->initConnectionDb();
-
-        $name = $mysqli->real_escape_string($this->name);
-        $surname = $mysqli->real_escape_string($this->surname);
-        $birth_date = $mysqli->real_escape_string($this->birth_date);
-        $nationality = $mysqli->real_escape_string($this->nationality);
-
-        // TODO: Comprobar que existe antes de editar
-        $query = "UPDATE directores 
-                  SET name = '" . $name . "', surname = '" . $surname . "', birth_date = '" . $birth_date . "', nationality = '" . $nationality . "' 
-                  WHERE id = '" . $this->id . "'";
         
-        if ($$mysqli->query($query)){
+        $query = "UPDATE directores 
+        SET nombre = '" . $this->name . "', apellidos = '" . $this->surname . "',  fecha_nacimiento = '" . $this->birth_date . "',  nacionalidad = '" . $this->nationality . "' 
+        WHERE id = '" . $this->id . "'";
+        
+        if ($mysqli->query($query)){
             $directorEdited = true;
         }
         return $directorEdited;
@@ -121,7 +111,7 @@ class Director {
         $query = $mysqli->query("SELECT * FROM directores WHERE id = " . $this->id);
 
         foreach ($query as $item) {
-            $itemObject = new Director($item["id"], $item["name"], $item["surname"], $item["birth_date"], $item["nationality"]);
+            $itemObject = new Director($item["id"], $item["nombre"], $item["apellidos"], $item["fecha_nacimiento"], $item["nacionalidad"]);
             break;
         }
 
@@ -134,7 +124,7 @@ class Director {
         $mysqli = $this->initConnectionDb();
 
         // TODO: Comprobar que existe antes de borrar
-        if ($query = $mysqli->query("DELETE FROM plataformas WHERE id =". $this->id)) {
+        if ($query = $mysqli->query("DELETE FROM directores WHERE id =". $this->id)) {
             $directorDeleted = true;
         }
 
