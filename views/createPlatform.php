@@ -14,6 +14,7 @@
             <input type="submit" value="Crear" class="btn btn-primary" name="createBtn"/>
         </form>
     </div>
+
 </div>
 <?php
     require_once("../controllers/PlatformController.php");

@@ -47,4 +47,5 @@
     <?php
         }
     ?>
+<a href="../index.html" class="btn btn-primary">Volver al inicio</a>
 </div>
