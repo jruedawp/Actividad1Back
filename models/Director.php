@@ -38,8 +38,21 @@ class Director {
     }
 
     public function getBirthDate() {
-        return $this->birth_date;
+        // Verifica si ya está en formato "d/m/Y" usando una expresión regular
+        if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $this->birth_date)) {
+            return $this->birth_date; // Ya está formateada
+        }
+    
+        // Si no, intenta formatearla desde el formato "YYYY-MM-DD"
+        try {
+            $date = new DateTime($this->birth_date);
+            return $date->format("d/m/Y");
+        } catch (Exception $e) {
+            error_log("Error al formatear la fecha: {$this->birth_date} - {$e->getMessage()}");
+            return "Fecha inválida";
+        }
     }
+    
 
     public function setBirthDate($birth_date) {
         $this->birth_date = $birth_date;
