@@ -23,38 +23,38 @@
             return $actorObjectArray;
         }
 
-        // Crear una plataforma
-        public function storePlatform ($platformName) {
+        // Crear un actor
+        public function storeActor ($actorName, $actorSurname, $actorBirth_Date, $actorNationality) {
 
-            $newPlatform = new Platform(null, $platformName);
-            $platformCreated = $newPlatform->store();
+            $newActor = new Actor(null, $actorName, $actorSurname, $actorBirth_Date, $actorNationality);
+            $actorCreated = $newActor->store();
 
-            return $platformCreated;
+            return $actorCreated;
         }
 
-        // Editar una plataforma
-        public function updatePlatform ($platformId, $platformName) {
-            $platform = new Platform($platformId, $platformName);
+        // Editar un actor
+        public function updateActor ($actorId, $actorName, $actorSurname, $actorBirth_Date, $actorNationality) {
+            $actor = new Actor($actorId, $actorName, $actorSurname, $actorBirth_Date, $actorNationality);
 
-            $platformEdited = $platform->update();
+            $actorEdited = $actor->update();
 
-            return $platformEdited;
+            return $actorEdited;
         }
 
-        // Obtener plataforma por id
-        public function getPlatformData ($idPlatform) {
-            $platform = new Platform($idPlatform, "");
-            $platformObject = $platform->getItem();
+        // Obtener actor por id
+        public function getActorData ($idActor) {
+            $actor = new Actor($idActor, "", "", "", "");
+            $actorObject = $actor->getItem();
 
-            return $platformObject;
+            return $actorObject;
         }
 
-        // Borrar una plataforma
-        public function deletePlatform ($platformId) {
-            $platform = new Platform($platformId, "");
-            $platformDeleted = $platform->delete();
+        // Borrar un actor
+        public function deleteActor ($actorId) {
+            $actor = new Actor($actorId, "", "", "", "");
+            $actorDeleted = $actor->delete();
 
-            return $platformDeleted;
+            return $actorDeleted;
         }
 
     }

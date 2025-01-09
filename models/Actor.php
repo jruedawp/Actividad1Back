@@ -38,8 +38,22 @@ class Actor {
     }
 
     public function getBirthDate() {
-        return $this->birth_date;
+        // Verifica si ya está en formato "d/m/Y"
+        if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $this->birth_date)) {
+            return $this->birth_date; // Ya está formateada
+        }
+    
+        // Si no, intenta formatearla desde el formato "YYYY-MM-DD"
+        try {
+            $date = new DateTime($this->birth_date);
+            return $date->format("d/m/Y");
+        } catch (Exception $e) {
+            error_log("Error al formatear la fecha: {$this->birth_date} - {$e->getMessage()}");
+            return "Fecha inválida";
+        }
     }
+    
+    
 
     public function setBirthDate($birth_date) {
         $this->birth_date = $birth_date;
@@ -73,54 +87,54 @@ class Actor {
         return $listData;
     }
 
-    // Crear una plataforma
+    // Crear un actor
     public function store() {
-        $platformCreated = false;
+        $actorCreated = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que no existe otra plataforma con el mismo nombre
-        if ($resultInsert = $mysqli->query("INSERT INTO plataformas (nombre) VALUES (' $this->name ')")) {
-            $platformCreated = true;
+        // TODO: Comprobar que no existe otro actor con el mismo nombre
+        if ($resultInsert = $mysqli->query("INSERT INTO actores (nombre, apellidos, fecha_nacimiento, nacionalidad) VALUES (' $this->name ', '$this->surname', '$this->birth_date', '$this->nationality')")) {
+            $actorCreated = true;
         }
-        return $platformCreated;
+        return $actorCreated;
     }
 
-    // Editar una plataforma
+    // Editar un actor
     public function update() {
-        $platformEdited = false;
+        $actorEdited = false;
         $mysqli = $this->initConnectionDb();
 
         // TODO: Comprobar que existe antes de editar
-        if ($query = $mysqli->query("UPDATE plataformas set nombre = '" . $this->name . "' WHERE id = " . $this->id)) {
-            $platformEdited = true;
+        if ($query = $mysqli->query("UPDATE actores SET nombre = '$this->name', apellidos = '$this->surname', fecha_nacimiento = '$this->birth_date', nacionalidad = '$this->nationality' WHERE id =  $this->id")) {
+            $actorEdited = true;
         }
-        return $platformEdited;
+        return $actorEdited;
     }
 
-    // Obtener plataforma por id
+    // Obtener actor por id
     public function getItem() {
         $mysqli = $this->initConnectionDb();
-        $query = $mysqli->query("SELECT * FROM plataformas WHERE id = " . $this->id);
+        $query = $mysqli->query("SELECT * FROM actores WHERE id = " . $this->id);
 
         foreach ($query as $item) {
-            $itemObject = new Platform($item["id"], $item["nombre"]);
+            $itemObject = new Actor($item["id"], $item["nombre"], $item['apellidos'], $item['fecha_nacimiento'], $item['nacionalidad']);
             break;
         }
 
         return $itemObject;
     }
 
-    // Borrar una plataforma
+    // Borrar un actor
     public function delete() {
-        $platformDeleted = false;
+        $actorDeleted = false;
         $mysqli = $this->initConnectionDb();
 
         // TODO: Comprobar que existe antes de borrar
-        if ($query = $mysqli->query("DELETE FROM plataformas WHERE id =". $this->id)) {
-            $platformDeleted = true;
+        if ($query = $mysqli->query("DELETE FROM actores WHERE id =". $this->id)) {
+            $actorDeleted = true;
         }
 
-        return $platformDeleted;
+        return $actorDeleted;
     }
 
     // Conectar a la Base de Datos
