@@ -27,8 +27,6 @@
         </form>
     </div>
 </div>
-
-
 <?php
     require_once("../controllers/ActorController.php");
 
