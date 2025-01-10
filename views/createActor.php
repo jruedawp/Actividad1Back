@@ -71,7 +71,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    El actor no se ha creado correctamente.<br><a href="createActor.php">Volver a intentarlo.</a>
+                   Ya existe un actor con ese nombre y apellidos.<br><a href="createActor.php">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

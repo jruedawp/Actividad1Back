@@ -85,7 +85,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                   El actor no se ha editado correctamente.<br><a href="editActor.php">Volver a intentarlo.</a>
+                Ya existe un actor con ese nombre y apellidos. <br><a href="editActor.php">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

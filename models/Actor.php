@@ -38,16 +38,13 @@ class Actor {
     }
 
     public function getBirthDate() {
-        // Verifica si ya está en formato "d/m/Y"
-        if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $this->birth_date)) {
-            return $this->birth_date; // Ya está formateada
-        }
-    
-        // Si no, intenta formatearla desde el formato "YYYY-MM-DD"
         try {
             $date = new DateTime($this->birth_date);
-            return $date->format("d/m/Y");
+    
+            // Devolver la fecha en el formato dd/mm/yyyy
+            return $date->format("Y-m-d");
         } catch (Exception $e) {
+            // Registrar el error y devolver un mensaje genérico
             error_log("Error al formatear la fecha: {$this->birth_date} - {$e->getMessage()}");
             return "Fecha inválida";
         }
@@ -92,7 +89,13 @@ class Actor {
         $actorCreated = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que no existe otro actor con el mismo nombre
+        // Verificar si ya existe un director con el mismo nombre y apellido
+        $checkQuery = "SELECT * FROM actores WHERE nombre = '" . $this->name . "' AND apellidos = '" . $this->surname . "'";
+        $result = $mysqli->query($checkQuery);
+        
+        if ($result->rowCount() > 0) {
+                return false;
+            }
         if ($resultInsert = $mysqli->query("INSERT INTO actores (nombre, apellidos, fecha_nacimiento, nacionalidad) VALUES (' $this->name ', '$this->surname', '$this->birth_date', '$this->nationality')")) {
             $actorCreated = true;
         }
@@ -104,7 +107,14 @@ class Actor {
         $actorEdited = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que existe antes de editar
+        // Verificar si ya existe un director con el mismo nombre y apellido
+        $checkQuery = "SELECT * FROM actores WHERE nombre = '" . $this->name . "' AND apellidos = '" . $this->surname . "'";
+        $result = $mysqli->query($checkQuery);
+        
+        if ($result->rowCount() > 0) {
+            return false;
+            }
+            
         if ($query = $mysqli->query("UPDATE actores SET nombre = '$this->name', apellidos = '$this->surname', fecha_nacimiento = '$this->birth_date', nacionalidad = '$this->nationality' WHERE id =  $this->id")) {
             $actorEdited = true;
         }

@@ -54,7 +54,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-success" role="alert">
-                    Plataforma editada correctamente.<br><a href="listLanguage.php">Volver al listado de plataformas.</a>
+                    Idioma editado correctamente.<br><a href="listLanguage.php">Volver al listado de idiomas.</a>
                 </div>
             </div>
             <?php
@@ -62,7 +62,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La plataforma no se ha editado correctamente.<br><a href="editLanguage.php">Volver a intentarlo.</a>
+                    Ya existe ese idioma o no ha sido modificado.<br><a href="editLanguage.php">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

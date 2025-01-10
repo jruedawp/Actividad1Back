@@ -59,7 +59,7 @@
 ?>
 <?php
     } else{
-        if ($directorCreated) {
+        if ($directorCreated === true) {
             ?>
             <div class="row">
                 <div class="alert alert-success" role="alert">
@@ -67,7 +67,15 @@
                 </div>
             </div>
             <?php
-        } else {
+        } else if($directorCreated === "repetido") {
+            ?>
+            <div class="row">
+                <div class="alert alert-danger" role="alert">
+                    Ya existe un director con ese nombre y apellidos.<br><a href="createDirector.php">Volver a intentarlo.</a>
+                </div>
+            </div>
+            <?php 
+        }else{
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">

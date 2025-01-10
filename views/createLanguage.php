@@ -54,7 +54,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La plataforma no se ha creado correctamente.<br><a href="createLanguage.php">Volver a intentarlo.</a>
+                    Ya existe un idioma con ese nombre o ese códdigo.<br><a href="createLanguage.php">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 
