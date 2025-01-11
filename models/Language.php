@@ -58,7 +58,13 @@ class Language {
         $lanCreated = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que no existe ya el mismo idioma
+        // Comprobar si ya existe un idioma con el mismo nombre o código ISO
+        $checkQuery = "SELECT 1 FROM idiomas WHERE nombre = '" . $this->name . "' OR iso_code = '" . $this->iso . "'";
+        $result = $mysqli->query($checkQuery);
+
+        if ($result->rowCount()> 0) {
+        return false;
+    }
         if ($resultInsert = $mysqli->query("INSERT INTO idiomas (nombre, iso_code) VALUES (' $this->name ', '$this->iso')")) {
             $lanCreated = true;
         }
@@ -69,8 +75,13 @@ class Language {
     public function update() {
         $lanEdited = false;
         $mysqli = $this->initConnectionDb();
-
-        // TODO: Comprobar que existe antes de editar
+        // Comprobar si ya existe un idioma con el mismo nombre o código ISO
+        $checkQuery = "SELECT 1 FROM idiomas WHERE nombre = '" . $this->name . "' AND iso_code = '" . $this->iso . "'";
+        $result = $mysqli->query($checkQuery);
+        
+        if ($result->rowCount()> 0) {
+            return false;
+            }
         if ($query = $mysqli->query("UPDATE idiomas SET nombre = '$this->name', iso_code = '$this->iso' WHERE id =  $this->id")) {
             $lanEdited = true;
         }

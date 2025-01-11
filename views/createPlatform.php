@@ -49,7 +49,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La plataforma no se ha creado correctamente.<br><a href="createPlatform.php">Volver a intentarlo.</a>
+                    Ya existe una plataforma con ese nombre.<br><a href="createPlatform.php">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

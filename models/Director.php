@@ -38,22 +38,19 @@ class Director {
     }
 
     public function getBirthDate() {
-        // Verifica si ya está en formato "d/m/Y" usando una expresión regular
-        if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $this->birth_date)) {
-            return $this->birth_date; // Ya está formateada
-        }
-    
-        // Si no, intenta formatearla desde el formato "YYYY-MM-DD"
         try {
             $date = new DateTime($this->birth_date);
-            return $date->format("d/m/Y");
+    
+            // Devolver la fecha en el formato dd/mm/yyyy
+            return $date->format("Y-m-d");
         } catch (Exception $e) {
+            // Registrar el error y devolver un mensaje genérico
             error_log("Error al formatear la fecha: {$this->birth_date} - {$e->getMessage()}");
             return "Fecha inválida";
         }
     }
     
-
+    
     public function setBirthDate($birth_date) {
         $this->birth_date = $birth_date;
     }
@@ -90,7 +87,14 @@ class Director {
     public function store() {
         $directorCreated = false;
         $mysqli = $this->initConnectionDb();
-    
+
+        // Verificar si ya existe un director con el mismo nombre y apellido
+        $checkQuery = "SELECT * FROM directores WHERE nombre = '" . $this->name . "' AND apellidos = '" . $this->surname . "'";
+        $result = $mysqli->query($checkQuery);
+
+        if ($result->rowCount() > 0) {
+            return "repetido";
+        }
         // Crear consulta directamente
         $query = "INSERT INTO directores (nombre, apellidos, fecha_nacimiento, nacionalidad) 
                   VALUES ('" . $this->name . "', '" . $this->surname . "', '" . $this->birth_date . "', '" . $this->nationality . "')";
@@ -104,10 +108,19 @@ class Director {
     }
 
     // Editar un director
-    public function update() {
+    public function update($name, $surname) {
         $directorEdited = false;
         $mysqli = $this->initConnectionDb();
         
+        // Verificar si ya existe un director con el mismo nombre y apellido
+        if ($this->name != $name or $this->surname != $surname){
+            $checkQuery = "SELECT * FROM directores WHERE nombre = '" . $this->name . "' AND apellidos = '" . $this->surname . "'";
+            $result = $mysqli->query($checkQuery);
+        
+            if ($result->rowCount() > 0) {
+                return false;
+            }
+        }
         $query = "UPDATE directores 
         SET nombre = '" . $this->name . "', apellidos = '" . $this->surname . "',  fecha_nacimiento = '" . $this->birth_date . "',  nacionalidad = '" . $this->nationality . "' 
         WHERE id = '" . $this->id . "'";
