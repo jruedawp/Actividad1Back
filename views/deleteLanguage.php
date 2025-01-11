@@ -13,7 +13,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-success" role="alert">
-                    idioma borrado correctamente. <br><a href="listLanguage.php">Volver al listado de idiomas.</a>
+                    Idioma borrado correctamente. <br><a href="listLanguage.php">Volver al listado de idiomas.</a>
                 </div>
             </div>
             <?php
@@ -21,7 +21,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    El idioma no se ha borrado correctamente. <br><a href="deleteLanguage.php">Volver a intentarlo.</a>
+                    El idioma no se ha borrado correctamente. <br><a href="listLanguage.php">Volver al listado de idiomas.</a>
                 </div>
             </div>
         <?php

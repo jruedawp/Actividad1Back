@@ -21,7 +21,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    El director no se ha borrado correctamente. <br><a href="deleteDirector.php">Volver a intentarlo.</a>
+                    El director no se ha borrado correctamente. <br><a href="listDirector.php">Volver al listado de directores.</a>
                 </div>
             </div>
         <?php

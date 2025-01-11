@@ -21,7 +21,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La serie no se ha borrado correctamente. <br><a href="deleteSeries.php">Volver a intentarlo.</a>
+                    La serie no se ha borrado correctamente. <br><a href="listSeries.php">Volver al listado de series.</a>
                 </div>
             </div>
             <?php

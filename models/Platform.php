@@ -97,9 +97,22 @@ class Platform {
         $platformDeleted = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que existe antes de borrar
-        if ($query = $mysqli->query("DELETE FROM plataformas WHERE id =". $this->id)) {
-            $platformDeleted = true;
+        // Comprobar que la plataforma existe
+        $checkPlatformQuery = $mysqli->query("SELECT * FROM plataformas WHERE id = $this->id");
+
+        if ($checkPlatformQuery && $checkPlatformQuery->rowCount() > 0) {
+            // Comprobar si la plataforma está relacionada con alguna serie
+            $checkSeriesRelationQuery = $mysqli->query("SELECT * FROM series WHERE plataforma_id = $this->id");
+
+            if ($checkSeriesRelationQuery && $checkSeriesRelationQuery->rowCount() > 0) {
+                // Si la plataforma está relacionada con alguna serie, no se permite el borrado
+                return $platformDeleted; // Retornamos false sin eliminar
+            }
+
+            // Si no tiene relaciones, procedemos a borrar la plataforma
+            if ($deleteQuery = $mysqli->query("DELETE FROM plataformas WHERE id = $this->id")) {
+                $platformDeleted = true; // La plataforma fue eliminada exitosamente
+            }
         }
 
         return $platformDeleted;

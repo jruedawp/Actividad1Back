@@ -144,14 +144,27 @@ class Director {
         return $itemObject;
     }
 
-    // Borrar un director
+   // Borrar un director
     public function delete() {
         $directorDeleted = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que existe antes de borrar
-        if ($query = $mysqli->query("DELETE FROM directores WHERE id =". $this->id)) {
-            $directorDeleted = true;
+        // Comprobar que el director existe
+        $checkDirectorQuery = $mysqli->query("SELECT * FROM directores WHERE id = $this->id");
+
+        if ($checkDirectorQuery && $checkDirectorQuery->rowCount() > 0) {
+            // Comprobar si el director está relacionado con alguna serie
+            $checkSeriesRelationQuery = $mysqli->query("SELECT * FROM series WHERE director_id = $this->id");
+
+            if ($checkSeriesRelationQuery && $checkSeriesRelationQuery->rowCount() > 0) {
+                // Si el director está relacionado con alguna serie, no se permite el borrado
+                return $directorDeleted;
+            }
+
+            // Si no tiene relaciones, procedemos a borrar el director
+            if ($deleteQuery = $mysqli->query("DELETE FROM directores WHERE id = $this->id")) {
+                $directorDeleted = true;
+            }
         }
 
         return $directorDeleted;

@@ -101,14 +101,33 @@ class Language {
         return $itemObject;
     }
 
-    // Borrar un actor
+    // Borrar un idioma
     public function delete() {
         $lanDeleted = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que existe antes de borrar
-        if ($query = $mysqli->query("DELETE FROM idiomas WHERE id =". $this->id)) {
-            $lanDeleted = true;
+        // Comprobar que el idioma existe
+        $checkLanguageQuery = $mysqli->query("SELECT * FROM idiomas WHERE id = $this->id");
+
+        if ($checkLanguageQuery && $checkLanguageQuery->rowCount() > 0) {
+            // Comprobar si el idioma tiene relaciones en series_audio
+            $checkAudioRelationQuery = $mysqli->query("SELECT * FROM series_idiomas_audio WHERE idioma_id = $this->id");
+
+            // Comprobar si el idioma tiene relaciones en series_subtitulos
+            $checkSubtitleRelationQuery = $mysqli->query("SELECT * FROM series_idiomas_subtitulos WHERE idioma_id = $this->id");
+
+            if (
+                ($checkAudioRelationQuery && $checkAudioRelationQuery->rowCount() > 0) || 
+                ($checkSubtitleRelationQuery && $checkSubtitleRelationQuery->rowCount() > 0)
+            ) {
+                // Si el idioma tiene relaciones en audio o subtítulos, no se permite el borrado
+                return $lanDeleted;
+            }
+
+            // Si no tiene relaciones, procedemos a borrar el idioma
+            if ($deleteQuery = $mysqli->query("DELETE FROM idiomas WHERE id = $this->id")) {
+                $lanDeleted = true;
+            }
         }
 
         return $lanDeleted;
