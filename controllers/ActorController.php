@@ -33,10 +33,9 @@
         }
 
         // Editar un actor
-        public function updateActor ($actorId, $actorName, $actorSurname, $actorBirth_Date, $actorNationality) {
+        public function updateActor ($actorId, $actorName, $actorSurname, $actorBirth_Date, $actorNationality,$actorName2, $actorSurname2) {
             $actor = new Actor($actorId, $actorName, $actorSurname, $actorBirth_Date, $actorNationality);
-
-            $actorEdited = $actor->update();
+            $actorEdited = $actor->update($actorName2, $actorSurname2);
 
             return $actorEdited;
         }

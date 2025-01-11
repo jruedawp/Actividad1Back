@@ -57,7 +57,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La plataforma no se ha editado correctamente.<br><a href="editPlatform.php">Volver a intentarlo.</a>
+                    Ya existe una plataforma con ese nombre o no ha editado nada.<br><a href="editPlatform.php?id=<?php echo $idPlatform; ?>">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

@@ -10,6 +10,7 @@
     $directorObject = $aux->getDirectorData($idDirector);
     ?>
 </div>
+
 <div class="row">
     <div class="col-12">
         <h1>Editar Director</h1>
@@ -62,7 +63,10 @@
                 $_POST['directorName'], 
                 $_POST['directorSurname'], 
                 $_POST['directorBirthDate'], 
-                $_POST['directorNationality']
+                $_POST['directorNationality'],
+                $directorObject->getName(),
+                $directorObject->getSurname()
+
             );
         }
     }
@@ -72,7 +76,6 @@
 
 <?php
     } else{
-       
         if ($directorEdited) {
             ?>
             <div class="row">
@@ -85,7 +88,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                   El director no se ha editado correctamente.<br><a href="editDirector.php">Volver a intentarlo.</a>
+                    Ya existe un director con ese nombre y apellidos. <br><<a href="editdirector.php?id=<?php echo $idDirector; ?>">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

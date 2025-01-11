@@ -38,22 +38,8 @@ class Actor {
     }
 
     public function getBirthDate() {
-        // Verifica si ya está en formato "d/m/Y"
-        if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $this->birth_date)) {
-            return $this->birth_date; // Ya está formateada
-        }
-    
-        // Si no, intenta formatearla desde el formato "YYYY-MM-DD"
-        try {
-            $date = new DateTime($this->birth_date);
-            return $date->format("d/m/Y");
-        } catch (Exception $e) {
-            error_log("Error al formatear la fecha: {$this->birth_date} - {$e->getMessage()}");
-            return "Fecha inválida";
-        }
+        return $this->birth_date;
     }
-    
-    
 
     public function setBirthDate($birth_date) {
         $this->birth_date = $birth_date;
@@ -92,21 +78,21 @@ class Actor {
         $actorCreated = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que no existe otro actor con el mismo nombre
-        if ($resultInsert = $mysqli->query("INSERT INTO actores (nombre, apellidos, fecha_nacimiento, nacionalidad) VALUES (' $this->name ', '$this->surname', '$this->birth_date', '$this->nationality')")) {
-            $actorCreated = true;
+        // TODO: Comprobar que no existe otra plataforma con el mismo nombre
+        if ($resultInsert = $mysqli->query("INSERT INTO plataformas (nombre) VALUES (' $this->name ')")) {
+            $platformCreated = true;
         }
         return $actorCreated;
     }
 
-    // Editar un actor
+    // Editar una plataforma
     public function update() {
-        $actorEdited = false;
+        $platformEdited = false;
         $mysqli = $this->initConnectionDb();
 
         // TODO: Comprobar que existe antes de editar
-        if ($query = $mysqli->query("UPDATE actores SET nombre = '$this->name', apellidos = '$this->surname', fecha_nacimiento = '$this->birth_date', nacionalidad = '$this->nationality' WHERE id =  $this->id")) {
-            $actorEdited = true;
+        if ($query = $mysqli->query("UPDATE plataformas set nombre = '" . $this->name . "' WHERE id = " . $this->id)) {
+            $platformEdited = true;
         }
         return $actorEdited;
     }

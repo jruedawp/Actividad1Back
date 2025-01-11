@@ -31,9 +31,9 @@
         }
 
         // Editar un Director
-        public function updateDirector ($directorId, $directorName, $directorSurname, $directorBirthDate, $directorNationality) {
+        public function updateDirector ($directorId, $directorName, $directorSurname, $directorBirthDate, $directorNationality,$directorName2, $directorSurname2) {
             $director = new Director($directorId, $directorName, $directorSurname, $directorBirthDate, $directorNationality);
-            $directorEdited = $director->update();
+            $directorEdited = $director->update($directorName2, $directorSurname2);
 
             return $directorEdited;
         }
