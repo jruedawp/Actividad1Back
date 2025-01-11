@@ -62,7 +62,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    Ya existe ese idioma o no ha sido modificado.<br><a href="editLanguage.php">Volver a intentarlo.</a>
+                    Ya existe ese idioma o no ha sido modificado.<br><a href="editLanguage.php?id=<?php echo $idLanguage; ?>">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 
