@@ -103,18 +103,20 @@ class Actor {
     }
 
     // Editar un actor
-    public function update() {
+    public function update($name, $surname) {
         $actorEdited = false;
         $mysqli = $this->initConnectionDb();
 
-        // Verificar si ya existe un director con el mismo nombre y apellido
-        $checkQuery = "SELECT * FROM actores WHERE nombre = '" . $this->name . "' AND apellidos = '" . $this->surname . "'";
-        $result = $mysqli->query($checkQuery);
+        // Verificar si ya existe un actor con el mismo nombre y apellido
+        if ($this->name != $name or $this->surname != $surname){
+            $checkQuery = "SELECT * FROM actores WHERE nombre = '" . $this->name . "' AND apellidos = '" . $this->surname . "'";
+            $result = $mysqli->query($checkQuery);
         
-        if ($result->rowCount() > 0) {
-            return false;
+            if ($result->rowCount() > 0) {
+                return false;
             }
-            
+        
+        }  
         if ($query = $mysqli->query("UPDATE actores SET nombre = '$this->name', apellidos = '$this->surname', fecha_nacimiento = '$this->birth_date', nacionalidad = '$this->nationality' WHERE id =  $this->id")) {
             $actorEdited = true;
         }

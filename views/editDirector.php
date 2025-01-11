@@ -88,7 +88,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                   Ya existe un director con ese nombre y apellidos o no ha sido editado.<br><a href="editDirector.php">Volver a intentarlo.</a>
+                    Ya existe un director con ese nombre y apellidos. <br><<a href="editdirector.php?id=<?php echo $idDirector; ?>">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 

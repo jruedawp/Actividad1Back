@@ -48,7 +48,13 @@ class Platform {
         $platformCreated = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que no existe otra plataforma con el mismo nombre
+        // Comprobar si ya existe un idioma con el mismo nombre o código ISO
+        $checkQuery = "SELECT 1 FROM plataformas WHERE nombre = '" . $this->name . "'";
+        $result = $mysqli->query($checkQuery);
+        
+        if ($result->rowCount()> 0) {
+            return false;
+        }
         if ($resultInsert = $mysqli->query("INSERT INTO plataformas (nombre) VALUES (' $this->name ')")) {
             $platformCreated = true;
         }
@@ -60,7 +66,13 @@ class Platform {
         $platformEdited = false;
         $mysqli = $this->initConnectionDb();
 
-        // TODO: Comprobar que existe antes de editar
+        // Comprobar si ya existe un idioma con el mismo nombre o código ISO
+        $checkQuery = "SELECT 1 FROM plataformas WHERE nombre = '" . $this->name . "'";
+         $result = $mysqli->query($checkQuery);
+                
+        if ($result->rowCount()> 0) {
+            return false;
+        }       
         if ($query = $mysqli->query("UPDATE plataformas set nombre = '" . $this->name . "' WHERE id = " . $this->id)) {
             $platformEdited = true;
         }

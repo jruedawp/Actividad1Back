@@ -62,7 +62,9 @@
                 $_POST['actorName'], 
                 $_POST['actorSurname'], 
                 $_POST['actorBirthDate'], 
-                $_POST['actorNationality']
+                $_POST['actorNationality'],
+                $actorObject->getName(),
+                $actorObject->getSurname()
             );
         }
     }
@@ -85,7 +87,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                Ya existe un actor con ese nombre y apellidos. <br><a href="editActor.php">Volver a intentarlo.</a>
+                Ya existe un actor con ese nombre y apellidos. <br><a href="editActor.php?id=<?php echo $idActor; ?>">Volver a intentarlo.</a>
                 </div>
             </div>
             <?php 
