@@ -21,7 +21,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    El actor no se ha borrado correctamente. <br><a href="deleteActor.php">Volver a intentarlo.</a>
+                    El actor no se ha borrado correctamente. <br><a href="listActor.php">Volver al listado de actores.</a>
                 </div>
             </div>
         <?php

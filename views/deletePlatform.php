@@ -21,7 +21,7 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
-                    La plataforma no se ha borrado correctamente. <br><a href="deletePlatform.php">Volver a intentarlo.</a>
+                    La plataforma no se ha borrado correctamente. <br><a href="listPlatform.php">Volver al listado de plataformas.</a>
                 </div>
             </div>
         <?php
