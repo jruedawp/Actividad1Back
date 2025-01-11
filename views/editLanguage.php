@@ -54,7 +54,9 @@
             ?>
             <div class="row">
                 <div class="alert alert-success" role="alert">
+
                     Idioma editado correctamente.<br><a href="listLanguage.php">Volver al listado de idiomas.</a>
+
                 </div>
             </div>
             <?php
@@ -62,7 +64,9 @@
             ?>
             <div class="row">
                 <div class="alert alert-danger" role="alert">
+
                     Ya existe ese idioma o no ha sido modificado.<br><a href="editLanguage.php?id=<?php echo $idLanguage; ?>">Volver a intentarlo.</a>
+
                 </div>
             </div>
             <?php 
